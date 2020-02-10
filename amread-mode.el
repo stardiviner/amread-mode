@@ -76,11 +76,10 @@
 (defun amread-stop ()
   "Stop amread."
   (interactive)
-  (prog1 amread--running
-    (when amread--running
-      (cancel-timer amread--running)
-      (setq amread--running nil)
-      (delete-overlay amread--overlay)))
+  (when amread--running
+    (cancel-timer amread--running)
+    (setq amread--running nil)
+    (delete-overlay amread--overlay))
   (read-only-mode -1)
   (message "I stopped reading."))
 
