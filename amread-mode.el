@@ -90,14 +90,6 @@
       (amread-stop)
     (amread-start)))
 
-(defun amread-mode-enable ()
-  "Enable amread-mode."
-  (amread-mode 1))
-
-(defun amread-mode-disable ()
-  "Disable amread-mode."
-  (amread-mode -1))
-
 (defvar amread-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "q") 'amread-mode-disable)
