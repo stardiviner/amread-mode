@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-11 13:23:04 stardiviner>
+;;; Time-stamp: <2020-02-11 13:24:11 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -76,11 +76,10 @@
 (defun amread-stop ()
   "Stop amread."
   (interactive)
-  (prog1 amread--running
-    (when amread--running
-      (cancel-timer amread--running)
-      (setq amread--running nil)
-      (delete-overlay amread--overlay)))
+  (when amread--running
+    (cancel-timer amread--running)
+    (setq amread--running nil)
+    (delete-overlay amread--overlay))
   (read-only-mode -1)
   (message "I stopped reading."))
 
