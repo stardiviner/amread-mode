@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-02 17:37:14 stardiviner>
+;;; Time-stamp: <2020-02-11 13:23:04 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -91,17 +91,14 @@
       (amread-stop)
     (amread-start)))
 
-(defun amread-mode-enable ()
-  "Enable amread-mode."
-  (amread-mode 1))
-
-(defun amread-mode-disable ()
+(defun amread-mode-quit ()
   "Disable amread-mode."
+  (interactive)
   (amread-mode -1))
 
 (defvar amread-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "q") 'amread-mode-disable)
+    (define-key map (kbd "q") 'amread-mode-quit)
     (define-key map (kbd "SPC") 'amread-pause-or-resume)
     (define-key map [remap keyaobrd-quit] 'amread-mode-disable)
     map)
