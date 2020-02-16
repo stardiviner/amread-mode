@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading. -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-16 15:55:50 stardiviner>
+;;; Time-stamp: <2020-02-16 15:57:29 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -69,7 +69,7 @@
   ;; resume from stopped position
   (if amread--current-position
       (goto-char amread--current-position)
-    (goto-char 0))
+    (goto-char (point-min)))
   (setq amread--running
         (run-with-timer 0 (/ 1.0 amread-wps) #'amread--update))
   (message "I start reading..."))
