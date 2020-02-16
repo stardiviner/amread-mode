@@ -5,7 +5,7 @@
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
 ;; Package-Version: 0.1
-;; Keywords: tools reader
+;; Keywords: wp
 ;; homepage: https://github.com/stardiviner/amread-mode
 
 ;; amread-mode is free software; you can redistribute it and/or modify it
