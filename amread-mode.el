@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading. -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-16 15:55:13 stardiviner>
+;;; Time-stamp: <2020-02-16 15:55:50 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -61,6 +61,7 @@
                            (background-color . "dark green")))
       (skip-chars-forward "\s\t\n—"))))
 
+;;;###autoload
 (defun amread-start ()
   "Start / resume amread."
   (interactive)
@@ -73,6 +74,7 @@
         (run-with-timer 0 (/ 1.0 amread-wps) #'amread--update))
   (message "I start reading..."))
 
+;;;###autoload
 (defun amread-stop ()
   "Stop amread."
   (interactive)
