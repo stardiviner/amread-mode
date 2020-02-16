@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading. -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-16 15:57:29 stardiviner>
+;;; Time-stamp: <2020-02-16 15:58:28 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -101,7 +101,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "q") 'amread-mode-quit)
     (define-key map (kbd "SPC") 'amread-pause-or-resume)
-    (define-key map [remap keyaobrd-quit] 'amread-mode-disable)
+    (define-key map [remap keyboard-quit] 'amread-mode-disable)
     map)
   "Keymap for amread-mode buffers.")
 
