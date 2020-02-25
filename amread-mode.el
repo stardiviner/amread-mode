@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading. -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-16 15:58:28 stardiviner>
+;;; Time-stamp: <2020-02-25 14:08:50 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -37,7 +37,7 @@
   :safe #'floatp
   :group 'amread)
 
-(defvar amread--running nil)
+(defvar amread--running-timer nil)
 (defvar amread--overlay nil)
 (defvar amread--current-position nil)
 
@@ -70,7 +70,7 @@
   (if amread--current-position
       (goto-char amread--current-position)
     (goto-char (point-min)))
-  (setq amread--running
+  (setq amread--running-timer
         (run-with-timer 0 (/ 1.0 amread-wps) #'amread--update))
   (message "I start reading..."))
 
@@ -78,9 +78,9 @@
 (defun amread-stop ()
   "Stop amread."
   (interactive)
-  (when amread--running
-    (cancel-timer amread--running)
-    (setq amread--running nil)
+  (when amread--running-timer
+    (cancel-timer amread--running-timer)
+    (setq amread--running-timer nil)
     (delete-overlay amread--overlay))
   (read-only-mode -1)
   (message "I stopped reading."))
@@ -88,7 +88,7 @@
 (defun amread-pause-or-resume ()
   "Pause or resume amread."
   (interactive)
-  (if amread--running
+  (if amread--running-timer
       (amread-stop)
     (amread-start)))
 
