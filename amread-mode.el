@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading. -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-02-25 14:08:50 stardiviner>
+;;; Time-stamp: <2020-02-25 22:43:20 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -44,6 +44,8 @@
 (defun amread--update ()
   "Moving amread cursor forward."
   (let* ((begin (point))
+         ;; move point forward. NOTE This forwarding must be here before moving overlay forward.
+         (length (+ (skip-chars-forward "^\s\t\n—") (skip-chars-forward "—")))
          (end (point)))
     (if (eobp)
         (progn
