@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-01 18:52:36 stardiviner>
+;;; Time-stamp: <2020-03-01 19:08:46 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3"))
@@ -119,6 +119,7 @@
     map)
   "Keymap for amread-mode buffers.")
 
+;;;###autoload
 (define-minor-mode amread-mode
   "I'm reading mode."
   :init nil
