@@ -10,6 +10,7 @@ This is a minor mode helping user speed-reading. Similar with Spritz (speed read
 
 1. enable amread-mode with command ~amread-mode~.
 2. stop amread-mode minor mode by pressing =[q]=.
+3. press =[+/-]= to change speed.
 
 * Plan
 
