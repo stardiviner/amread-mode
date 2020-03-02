@@ -6,6 +6,16 @@ This is a minor mode helping user speed-reading. Similar with Spritz (speed read
 
 [[file:amread-mode.gif]]
 
+* Installation
+
+MELPA available soon.
+
+#+begin_src emacs-lisp
+(use-package amread-mode
+  :ensure t
+  :commands (amread-mode))
+#+end_src
+
 * Usage
 
 1. enable amread-mode with command ~amread-mode~.
