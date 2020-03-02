@@ -2,9 +2,17 @@
 
 This is a minor mode helping user speed-reading. Similar with Spritz (speed read).
 
+The core code is borrowed from "Spray".
+
 * Screencast
 
 [[file:amread-mode.gif]]
+
+* Features
+
+- speed up/down reading interactively
+- resume from previous paused position
+- support customize overlay face font and color
 
 * Installation
 
@@ -24,6 +32,6 @@ MELPA available soon.
 
 * Plan
 
-- [ ] resume from the position where stoped
+- [X] resume from the position where stoped
 - [ ] support Chinese context
   - [ ] 自动内容分词，将分词作为一个 word, 在分词的结果上进行移动
