@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-15 08:33:08 stardiviner>
+;;; Time-stamp: <2020-03-15 11:22:55 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -96,17 +96,17 @@
     (amread-start)))
 
 (defun amread-mode-quit ()
-  "Disable amread-mode."
+  "Disable `amread-mode'."
   (interactive)
   (amread-mode -1))
 
 (defun amread-speed-up ()
-  "Speed up amread-mode."
+  "Speed up `amread-mode'."
   (interactive)
   (setq amread-wps (cl-incf amread-wps 0.2)))
 
 (defun amread-speed-down ()
-  "Speed down amread-mode."
+  "Speed down `amread-mode'."
   (interactive)
   (setq amread-wps (cl-decf amread-wps 0.2)))
 
@@ -118,7 +118,7 @@
     (define-key map (kbd "+") #'amread-speed-up)
     (define-key map (kbd "-") #'amread-speed-down)
     map)
-  "Keymap for amread-mode buffers.")
+  "Keymap for `amread-mode' buffers.")
 
 ;;;###autoload
 (define-minor-mode amread-mode
