@@ -1,9 +1,9 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-02 18:25:45 stardiviner>
+;;; Time-stamp: <2020-03-15 08:33:08 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
 ;; Package-Version: 0.1
 ;; Keywords: wp
 ;; homepage: https://github.com/stardiviner/amread-mode
@@ -30,6 +30,8 @@
 ;;; 2. Stop amread-mode by pressing [q].
 
 ;;; Code:
+(require 'cl-lib)
+
 
 (defcustom amread-wps 3.0
   "Read words per second."
@@ -101,12 +103,12 @@
 (defun amread-speed-up ()
   "Speed up amread-mode."
   (interactive)
-  (setq amread-wps (incf amread-wps 0.2)))
+  (setq amread-wps (cl-incf amread-wps 0.2)))
 
 (defun amread-speed-down ()
   "Speed down amread-mode."
   (interactive)
-  (setq amread-wps (decf amread-wps 0.2)))
+  (setq amread-wps (cl-decf amread-wps 0.2)))
 
 (defvar amread-mode-map
   (let ((map (make-sparse-keymap)))
