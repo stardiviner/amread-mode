@@ -37,14 +37,21 @@
   "Read words per second."
   :type 'float
   :safe #'floatp
-  :group 'amread)
+  :group 'amread-mode)
+
+(defcustom amread-scroll-style 'word
+  "Set amread auto scroll style by word or line."
+  :type '(choice (const :tag "scroll by word" word)
+                 (const :tag "scroll by line" line))
+  :safe #'symbolp
+  :group 'amread-mode)
 
 (defvar amread--timer nil)
 (defvar amread--overlay nil)
 (defvar amread--current-position nil)
 
-(defun amread--update ()
-  "Moving amread cursor forward."
+(defun amread--scroll-by-word ()
+  "Scroll forward by word as step."
   (let* ((begin (point))
          ;; move point forward. NOTE This forwarding must be here before moving overlay forward.
          (_length (+ (skip-chars-forward "^\s\t\n—") (skip-chars-forward "—")))
@@ -64,6 +71,13 @@
                    'face '((foreground-color . "white")
                            (background-color . "dark green")))
       (skip-chars-forward "\s\t\n—"))))
+
+
+(defun amread--update ()
+  "Update and scroll forward under Emacs timer."
+  (if (eq amread-scroll-style 'word)
+      (amread--scroll-by-word)
+    (amread--scroll-by-line)))
 
 ;;;###autoload
 (defun amread-start ()
