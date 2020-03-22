@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-22 16:19:05 stardiviner>
+;;; Time-stamp: <2020-03-22 16:22:42 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -98,6 +98,12 @@
       (amread--word-update)
     (amread--line-update)))
 
+(defun amread--speed-reset ()
+  "Reset the amread-mode speed based on word style or line style."
+  (if (eq amread-scroll-style 'word)
+      (setq amread-speed 3.0)
+    (setq amread-speed 0.4)))
+
 ;;;###autoload
 (defun amread-start ()
   "Start / resume amread."
@@ -110,6 +116,7 @@
     (when amread--current-position
       (goto-char (point-min))
       (forward-line amread--current-position)))
+  (amread--speed-reset)
   (setq amread--timer
         (run-with-timer 0 (/ 1.0 amread-speed) #'amread--update))
   (message "I start reading..."))
