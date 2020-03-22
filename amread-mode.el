@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-22 16:35:33 stardiviner>
+;;; Time-stamp: <2020-03-22 16:38:13 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -39,7 +39,7 @@
   :safe #'floatp
   :group 'amread-mode)
 
-(defcustom amread-scroll-style 'word
+(defcustom amread-scroll-style nil
   "Set amread auto scroll style by word or line."
   :type '(choice (const :tag "scroll by word" word)
                  (const :tag "scroll by line" line))
@@ -114,7 +114,7 @@
   "Start / resume amread."
   (interactive)
   (read-only-mode 1)
-  (amread--scroll-style-ask)
+  (or amread-scroll-style (amread--scroll-style-ask))
   ;; resume from paused position
   (if (eq amread-scroll-style 'word)
       (when amread--current-position
@@ -135,6 +135,7 @@
     (cancel-timer amread--timer)
     (setq amread--timer nil)
     (delete-overlay amread--overlay))
+  (setq amread-scroll-style nil)
   (read-only-mode -1)
   (message "I stopped reading."))
 
