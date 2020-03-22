@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-15 11:22:55 stardiviner>
+;;; Time-stamp: <2020-03-22 16:13:58 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -46,11 +46,16 @@
   :safe #'symbolp
   :group 'amread-mode)
 
-(defvar amread--timer nil)
-(defvar amread--overlay nil)
-(defvar amread--current-position nil)
+(defface amread-highlight-face
+  '((t :foreground "black" :background "orange"))
+  "Face for amread-mode highlight."
+  :group 'amread-mode)
 
-(defun amread--scroll-by-word ()
+(defvar amread--timer nil)
+(defvar amread--current-position nil)
+(defvar amread--overlay nil)
+
+(defun amread--word-update ()
   "Scroll forward by word as step."
   (let* ((begin (point))
          ;; move point forward. NOTE This forwarding must be here before moving overlay forward.
@@ -67,17 +72,31 @@
       (when amread--overlay
         (move-overlay amread--overlay begin end))
       (setq amread--current-position (point))
-      (overlay-put amread--overlay
-                   'face '((foreground-color . "white")
-                           (background-color . "dark green")))
+      (overlay-put amread--overlay 'face 'amread-highlight-face)
       (skip-chars-forward "\s\t\n—"))))
 
+(defun amread--line-update ()
+  "Scroll forward by line as step."
+  (let* ((line-begin (line-beginning-position))
+         (line-end (line-end-position)))
+    (if (eobp) ; reached end of buffer.
+        (progn
+          (amread-mode -1)
+          (setq amread--current-position nil))
+      ;; create line overlay to highlight current reading line.
+      (unless amread--overlay
+        (setq amread--overlay (make-overlay line-begin line-end)))
+      ;; scroll down line
+      (when amread--overlay
+        (move-overlay amread--overlay line-begin line-end))
+      (overlay-put amread--overlay 'face 'amread-highlight-face)
+      (forward-line 1))))
 
 (defun amread--update ()
   "Update and scroll forward under Emacs timer."
   (if (eq amread-scroll-style 'word)
-      (amread--scroll-by-word)
-    (amread--scroll-by-line)))
+      (amread--word-update)
+    (amread--line-update)))
 
 ;;;###autoload
 (defun amread-start ()
@@ -85,8 +104,12 @@
   (interactive)
   (read-only-mode 1)
   ;; resume from paused position
-  (when amread--current-position
-    (goto-char amread--current-position))
+  (if (eq amread-scroll-style 'word)
+      (when amread--current-position
+        (goto-char amread--current-position))
+    (when amread--current-position
+      (goto-char (point-min))
+      (forward-line amread--current-position)))
   (setq amread--timer
         (run-with-timer 0 (/ 1.0 amread-wps) #'amread--update))
   (message "I start reading..."))
