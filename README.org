@@ -15,6 +15,7 @@ The core code is borrowed from "Spray".
 - speed up/down reading interactively
 - resume from previous paused position
 - support customize overlay face font and color
+- interactive select scroll style by word or line at first time
 
 * Installation
 
@@ -43,6 +44,10 @@ MELPA available soon.
 
 * Plan
 
-- [X] resume from the position where stoped
+- [X] resume from the position where stopped
+- [X] scroll by word or line
+- [X] speed up/down scroll
+- [X] pause/resume from position
+- [ ] line style scroll by smart timer speed based on current and next line text length
 - [ ] support Chinese context
   - [ ] 自动内容分词，将分词作为一个 word, 在分词的结果上进行移动
