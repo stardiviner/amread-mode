@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-22 16:22:42 stardiviner>
+;;; Time-stamp: <2020-03-22 16:35:33 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -104,11 +104,17 @@
       (setq amread-speed 3.0)
     (setq amread-speed 0.4)))
 
+(defun amread--scroll-style-ask ()
+  "Ask which scroll style to use."
+  (let ((style (intern (completing-read "amread-mode scroll style: " '("word" "line")))))
+    (setq amread-scroll-style style)))
+
 ;;;###autoload
 (defun amread-start ()
   "Start / resume amread."
   (interactive)
   (read-only-mode 1)
+  (amread--scroll-style-ask)
   ;; resume from paused position
   (if (eq amread-scroll-style 'word)
       (when amread--current-position
