@@ -6,7 +6,9 @@ The core code is borrowed from "Spray".
 
 * Screencast
 
-[[file:amread-mode.gif]]
+[[file:scroll-by-word.gif]]
+
+[[file:scroll-by-line.gif]]
 
 * Features
 
@@ -26,9 +28,18 @@ MELPA available soon.
 
 * Usage
 
-1. enable amread-mode with command ~amread-mode~.
-2. stop amread-mode minor mode by pressing =[q]=.
-3. press =[+/-]= to change speed.
+1. start amread-mode with command =[M-x amread]=.
+2. amread-mode will ask you use which scroll style? scroll by word or scroll by line.
+
+   #+NAME: scroll by word
+   [[file:scroll-by-word.gif]]
+
+   #+NAME: scroll by line
+   [[file:scroll-by-line.gif]]
+
+3. stop amread-mode minor mode by pressing =[q]=.
+4. press =[SPACE]= to pause or resume.
+5. press =[+/-]= to change speed.
 
 * Plan
 
