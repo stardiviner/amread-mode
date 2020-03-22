@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-22 16:13:58 stardiviner>
+;;; Time-stamp: <2020-03-22 16:19:05 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -33,7 +33,7 @@
 (require 'cl-lib)
 
 
-(defcustom amread-wps 3.0
+(defcustom amread-speed 3.0
   "Read words per second."
   :type 'float
   :safe #'floatp
@@ -111,7 +111,7 @@
       (goto-char (point-min))
       (forward-line amread--current-position)))
   (setq amread--timer
-        (run-with-timer 0 (/ 1.0 amread-wps) #'amread--update))
+        (run-with-timer 0 (/ 1.0 amread-speed) #'amread--update))
   (message "I start reading..."))
 
 ;;;###autoload
@@ -140,12 +140,12 @@
 (defun amread-speed-up ()
   "Speed up `amread-mode'."
   (interactive)
-  (setq amread-wps (cl-incf amread-wps 0.2)))
+  (setq amread-speed (cl-incf amread-speed 0.2)))
 
 (defun amread-speed-down ()
   "Speed down `amread-mode'."
   (interactive)
-  (setq amread-wps (cl-decf amread-wps 0.2)))
+  (setq amread-speed (cl-decf amread-speed 0.2)))
 
 (defvar amread-mode-map
   (let ((map (make-sparse-keymap)))
