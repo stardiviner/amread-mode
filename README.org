@@ -12,10 +12,16 @@ The core code is borrowed from "Spray".
 
 * Features
 
-- speed up/down reading interactively
-- resume from previous paused position
-- support customize overlay face font and color
-- interactive select scroll style by word or line at first time
+- [X] interactive select scroll style by word or line at first time
+- [X] resume from the position where stopped
+- [X] scroll by word or line reading interactively
+- [X] speed up/down scroll
+- [X] pause/resume from position
+- [X] support Chinese context
+  - [X] 自动内容分词，将分词作为一个 word, 在分词的结果上进行移动，这个办法太复
+    杂了，直接将行长度作为字符串长度考虑来计算停留时间。
+- [X] line style scroll by smart timer speed based on current and next line text length
+- [X] support customize overlay face font and color
 
 * Installation
 
@@ -42,12 +48,3 @@ MELPA available soon.
 4. press =[SPACE]= to pause or resume.
 5. press =[+/-]= to change speed.
 
-* Plan
-
-- [X] resume from the position where stopped
-- [X] scroll by word or line
-- [X] speed up/down scroll
-- [X] pause/resume from position
-- [ ] line style scroll by smart timer speed based on current and next line text length
-- [ ] support Chinese context
-  - [ ] 自动内容分词，将分词作为一个 word, 在分词的结果上进行移动
