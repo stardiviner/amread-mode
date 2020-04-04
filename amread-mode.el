@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-03-22 16:43:41 stardiviner>
+;;; Time-stamp: <2020-04-04 14:25:31 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -98,16 +98,30 @@
       (amread--word-update)
     (amread--line-update)))
 
-(defun amread--speed-initialize ()
-  "Reset the amread-mode speed based on word style or line style."
-  (if (eq amread-scroll-style 'word)
-      (setq amread-speed 3.0)
-    (setq amread-speed 0.4)))
-
 (defun amread--scroll-style-ask ()
   "Ask which scroll style to use."
   (let ((style (intern (completing-read "amread-mode scroll style: " '("word" "line")))))
     (setq amread-scroll-style style)))
+
+(defun amread--get-line-words (&optional pos)
+  "Get the line words of position."
+  (save-excursion
+    (and pos (goto-char pos))
+    (count-words (line-end-position) (line-beginning-position))))
+
+(defun amread--get-next-line-words ()
+  "Get the next line words."
+  (amread--get-line-words (save-excursion (next-line) (point))))
+
+(defun amread--get-line-length (&optional pos)
+  "Get the line length of position."
+  (save-excursion
+    (and pos (goto-char pos))
+    (- (line-end-position) (line-beginning-position))))
+
+(defun amread--get-next-line-length ()
+  "Get the next line length."
+  (amread--get-line-words (save-excursion (next-line) (point))))
 
 ;;;###autoload
 (defun amread-start ()
@@ -116,15 +130,20 @@
   (read-only-mode 1)
   (or amread-scroll-style (amread--scroll-style-ask))
   ;; resume from paused position
-  (if (eq amread-scroll-style 'word)
-      (when amread--current-position
-        (goto-char amread--current-position))
-    (when amread--current-position
-      (goto-char (point-min))
-      (forward-line amread--current-position)))
-  (amread--speed-initialize)
-  (setq amread--timer
-        (run-with-timer 0 (/ 1.0 amread-speed) #'amread--update))
+  (cl-case amread-scroll-style
+    (word
+     (when amread--current-position
+       (goto-char amread--current-position))
+     (setq amread--timer
+           (run-with-timer 0 (/ 1.0 amread-speed) #'amread--update)))
+    (line
+     (when amread--current-position
+       (goto-char (point-min))
+       (forward-line amread--current-position))
+     (let* ((next-line-words (amread--get-next-line-words)) ; for English
+            (amread--stick-secs (/ next-line-words amread-speed)))
+       (setq amread--timer
+             (run-with-timer amread--stick-secs nil #'amread--update)))))
   (message "I start reading..."))
 
 ;;;###autoload
