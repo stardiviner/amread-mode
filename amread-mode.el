@@ -153,7 +153,8 @@
   (when amread--timer
     (cancel-timer amread--timer)
     (setq amread--timer nil)
-    (delete-overlay amread--overlay))
+    (when amread--overlay
+      (delete-overlay amread--overlay)))
   (setq amread-scroll-style nil)
   (read-only-mode -1)
   (message "I stopped reading."))
