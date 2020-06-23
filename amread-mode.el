@@ -1,6 +1,6 @@
 ;;; amread-mode.el --- A minor mode helper user speed-reading -*- lexical-binding: t; -*-
 
-;;; Time-stamp: <2020-04-04 14:25:31 stardiviner>
+;;; Time-stamp: <2020-06-23 23:44:49 stardiviner>
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.6.1"))
@@ -111,7 +111,7 @@
 
 (defun amread--get-next-line-words ()
   "Get the next line words."
-  (amread--get-line-words (save-excursion (next-line) (point))))
+  (amread--get-line-words (save-excursion (forward-line) (point))))
 
 (defun amread--get-line-length (&optional pos)
   "Get the line length of position."
@@ -121,7 +121,7 @@
 
 (defun amread--get-next-line-length ()
   "Get the next line length."
-  (amread--get-line-words (save-excursion (next-line) (point))))
+  (amread--get-line-words (save-excursion (forward-line) (point))))
 
 ;;;###autoload
 (defun amread-start ()
